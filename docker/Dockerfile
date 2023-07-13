@@ -1,4 +1,5 @@
 FROM alpine:3.18
+ARG AKKOMA_VERSION=3.9.3
 
 # ARG __VIA_SCRIPT
 # RUN \
@@ -25,8 +26,7 @@ LABEL maintainer="mel@hyena.network" \
 # Set up environment
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-ARG MIX_ENV
-ENV MIX_ENV=$MIX_ENV
+ENV MIX_ENV=prod
 
 # Prepare mounts
 VOLUME /custom.d /uploads
@@ -52,12 +52,10 @@ RUN chmod a+x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Limit permissions
-ARG DOCKER_UID=1000
-ARG DOCKER_GID=1000
 RUN \
-    echo "#> akkoma user will be ${DOCKER_UID}:${DOCKER_GID}" 1>&2 && \
+    echo "#> akkoma user will be 1000:1000" 1>&2 && \
     addgroup -g ${DOCKER_GID} akkoma && \
-    adduser -S -s /bin/ash -G akkoma -u ${DOCKER_UID} akkoma && \
+    adduser -S -s /bin/ash -G akkoma -u 1000:1000 akkoma && \
     mkdir -p /custom.d /uploads && \
     chown -R akkoma:akkoma /custom.d /uploads
 
@@ -71,11 +69,9 @@ WORKDIR /home/akkoma
 # In itself that wouldn't be much of an issue, but said folder(s) are created as root:akkoma with 2755.
 # This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10).
 #
-ARG AKKOMA_GIT_REPO
-ARG AKKOMA_VERSION
 RUN \
     echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
-    git clone --depth 1 --branch $AKKOMA_VERSION $AKKOMA_GIT_REPO ./akkoma && \
+    git clone --depth 1 --branch $AKKOMA_VERSION https://akkoma.dev/AkkomaGang/akkoma.git ./akkoma && \
     mkdir -p ./akkoma/instance/static/emoji
 
 WORKDIR /home/akkoma/akkoma
