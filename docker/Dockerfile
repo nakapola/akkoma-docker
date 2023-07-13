@@ -45,7 +45,6 @@ RUN \
     && \
     apk add --no-cache --virtual .runtime \
         imagemagick ffmpeg exiftool \
-        elixir erlang erlang-dev
 
 # Add entrypoint
 COPY ./entrypoint.sh /
