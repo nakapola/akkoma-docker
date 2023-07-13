@@ -1,6 +1,4 @@
-# FROM alpine:3.17
-FROM hexpm/elixir:1.15.2-erlang-26.0.2-alpine-3.18.2
-
+FROM alpine:3.18
 ARG AKKOMA_VERSION=v3.9.3
 
 # ARG __VIA_SCRIPT
@@ -37,17 +35,16 @@ VOLUME /custom.d /uploads
 EXPOSE 4000 9999 2222
 
 # Get dependencies
-# RUN \
-#     apk add --no-cache --virtual .tools \
-#         git curl rsync postgresql-client \
-#     && \
-#     apk add --no-cache --virtual .sdk \
-#         build-base cmake file-dev \
-#     && \
-#     apk add --no-cache --virtual .runtime \
-#         imagemagick ffmpeg exiftool \
-RUN apk add git gcc g++ musl-dev make cmake file-dev exiftool ffmpeg imagemagick libmagic ncurses postgresql-client build-base rsync
-
+RUN \
+    apk add --no-cache --virtual .tools \
+        git curl rsync postgresql-client \
+    && \
+    apk add --no-cache --virtual .sdk \
+        build-base cmake file-dev \
+    && \
+    apk add --no-cache --virtual .runtime \
+        imagemagick ffmpeg exiftool \
+        elixir erlang erlang-dev
 
 # Add entrypoint
 COPY ./entrypoint.sh /
