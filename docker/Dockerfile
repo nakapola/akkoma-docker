@@ -1,5 +1,6 @@
 # FROM alpine:3.17
-FROM hexpm/elixir:1.14.3-erlang-25.3-alpine-3.17.2
+FROM hexpm/elixir:1.15.2-erlang-26.0.2-alpine-3.18.2
+
 ARG AKKOMA_VERSION=v3.9.3
 
 # ARG __VIA_SCRIPT
