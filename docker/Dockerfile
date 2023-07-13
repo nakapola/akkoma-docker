@@ -52,8 +52,8 @@ RUN chmod a+x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Limit permissions
-ARG DOCKER_UID
-ARG DOCKER_GID
+ARG DOCKER_UID=1000
+ARG DOCKER_GID=1000
 RUN \
     echo "#> akkoma user will be ${DOCKER_UID}:${DOCKER_GID}" 1>&2 && \
     addgroup -g ${DOCKER_GID} akkoma && \
