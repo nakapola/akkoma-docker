@@ -72,6 +72,7 @@ WORKDIR /home/akkoma
 # This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10).
 #
 ARG AKKOMA_GIT_REPO
+ARG AKKOMA_VERSION
 RUN \
     echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
     git clone --depth 1 --branch $AKKOMA_VERSION $AKKOMA_GIT_REPO ./akkoma && \
