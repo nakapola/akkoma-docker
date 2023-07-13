@@ -6,7 +6,6 @@ on:
 
     paths:
     - 'docker/**'
-    - '**.dist'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: akkoma
