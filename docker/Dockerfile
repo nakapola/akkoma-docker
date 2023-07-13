@@ -1,5 +1,5 @@
 FROM alpine:3.18
-ARG AKKOMA_VERSION=3.9.3
+ARG AKKOMA_VERSION=v3.9.3
 
 # ARG __VIA_SCRIPT
 # RUN \
@@ -53,9 +53,9 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # Limit permissions
 RUN \
-    echo "#> akkoma user will be 1000:1000" 1>&2 && \
+    # echo "#> akkoma user will be 1000:1000" 1>&2 && \
     addgroup -g 1000 akkoma && \
-    adduser -S -s /bin/ash -G akkoma -u 1000:1000 akkoma && \
+    adduser -S -s /bin/ash -G akkoma -u 1000 akkoma && \
     mkdir -p /custom.d /uploads && \
     chown -R akkoma:akkoma /custom.d /uploads
 
@@ -70,7 +70,7 @@ WORKDIR /home/akkoma
 # This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10).
 #
 RUN \
-    echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
+    # echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
     git clone --depth 1 --branch $AKKOMA_VERSION https://akkoma.dev/AkkomaGang/akkoma.git ./akkoma && \
     mkdir -p ./akkoma/instance/static/emoji
 
