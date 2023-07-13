@@ -67,7 +67,7 @@ WORKDIR /home/akkoma
 # Also make sure that instance/static/emoji exists.
 # akkoma does not ship with an `instance` folder by default, causing docker to create `instance/static` for us at launch.
 # In itself that wouldn't be much of an issue, but said folder(s) are created as root:akkoma with 2755.
-# This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10).
+# This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10). 
 #
 RUN \
     # echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
