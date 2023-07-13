@@ -1,5 +1,4 @@
 FROM alpine:3.18
-ARG AKKOMA_VERSION=v3.9.3
 
 # ARG __VIA_SCRIPT
 # RUN \
@@ -69,6 +68,7 @@ WORKDIR /home/akkoma
 # In itself that wouldn't be much of an issue, but said folder(s) are created as root:akkoma with 2755.
 # This breaks the custom.d step in entrypoint.sh which relies on writing there (See #10).
 #
+ARG AKKOMA_VERSION=v3.9.3
 RUN \
     # echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
     git clone --depth 1 --branch $AKKOMA_VERSION https://akkoma.dev/AkkomaGang/akkoma.git ./akkoma && \
