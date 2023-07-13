@@ -1,11 +1,11 @@
 FROM alpine:3.18
 
-ARG __VIA_SCRIPT
-RUN \
-    if [ -z "$__VIA_SCRIPT" ]; then \
-        echo -e "\n\nERROR\nYou must build pleroma via build.sh\n\n"; \
-        exit 1; \
-    fi
+# ARG __VIA_SCRIPT
+# RUN \
+#     if [ -z "$__VIA_SCRIPT" ]; then \
+#         echo -e "\n\nERROR\nYou must build pleroma via build.sh\n\n"; \
+#         exit 1; \
+#     fi
 
 #Setup labels
 ARG BUILD_DATE
@@ -74,7 +74,7 @@ WORKDIR /home/akkoma
 ARG AKKOMA_GIT_REPO
 RUN \
     echo "#> Getting akkoma sources from $AKKOMA_GIT_REPO..." 1>&2 && \
-    git clone --progress $AKKOMA_GIT_REPO ./akkoma && \
+    git clone --depth 1 --branch $AKKOMA_VERSION $AKKOMA_GIT_REPO ./akkoma && \
     mkdir -p ./akkoma/instance/static/emoji
 
 WORKDIR /home/akkoma/akkoma
@@ -82,18 +82,18 @@ WORKDIR /home/akkoma/akkoma
 # Bust the build cache (if needed)
 # This works by setting an environment variable with the last
 # used version/branch/tag/commit/... which originates in the script.
-ARG __CACHE_TAG
-ENV __CACHE_TAG $__CACHE_TAG
+# ARG __CACHE_TAG
+# ENV __CACHE_TAG $__CACHE_TAG
 
-# Fetch changes, checkout
-# Only pull if the version-string happens to be a branch
-ARG AKKOMA_VERSION
-RUN \
-    git fetch --all && \
-    git checkout $AKKOMA_VERSION && \
-    if git show-ref --quiet "refs/heads/$AKKOMA_VERSION"; then \
-        git pull --rebase --autostash; \
-    fi
+# # Fetch changes, checkout
+# # Only pull if the version-string happens to be a branch
+# ARG AKKOMA_VERSION
+# RUN \
+#     git fetch --all && \
+#     git checkout $AKKOMA_VERSION && \
+#     if git show-ref --quiet "refs/heads/$AKKOMA_VERSION"; then \
+#         git pull --rebase --autostash; \
+#     fi
 
 # Precompile
 RUN \
