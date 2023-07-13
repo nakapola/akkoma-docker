@@ -54,7 +54,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 # Limit permissions
 RUN \
     echo "#> akkoma user will be 1000:1000" 1>&2 && \
-    addgroup -g ${DOCKER_GID} akkoma && \
+    addgroup -g 1000 akkoma && \
     adduser -S -s /bin/ash -G akkoma -u 1000:1000 akkoma && \
     mkdir -p /custom.d /uploads && \
     chown -R akkoma:akkoma /custom.d /uploads
