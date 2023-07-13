@@ -36,15 +36,17 @@ VOLUME /custom.d /uploads
 EXPOSE 4000 9999 2222
 
 # Get dependencies
-RUN \
-    apk add --no-cache --virtual .tools \
-        git curl rsync postgresql-client \
-    && \
-    apk add --no-cache --virtual .sdk \
-        build-base cmake file-dev \
-    && \
-    apk add --no-cache --virtual .runtime \
-        imagemagick ffmpeg exiftool \
+# RUN \
+#     apk add --no-cache --virtual .tools \
+#         git curl rsync postgresql-client \
+#     && \
+#     apk add --no-cache --virtual .sdk \
+#         build-base cmake file-dev \
+#     && \
+#     apk add --no-cache --virtual .runtime \
+#         imagemagick ffmpeg exiftool \
+RUN apk add git gcc g++ musl-dev make cmake file-dev exiftool ffmpeg imagemagick libmagic ncurses postgresql-client build-base rsync
+
 
 # Add entrypoint
 COPY ./entrypoint.sh /
