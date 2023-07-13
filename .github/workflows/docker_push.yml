@@ -4,8 +4,6 @@ on:
   push:
     branches: ['main']
 
-    paths:
-    - 'docker/**'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: akkoma
@@ -47,6 +45,6 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: | 
-             latest
+             ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
              ${{ steps.meta.outputs.tags }}  
           labels: ${{ steps.meta.outputs.labels }}
