@@ -22,7 +22,7 @@ services:
 
   server:
     build: docker/
-    image: ghcr.io/hyena-network/akkoma:${AKKOMA_VERSION}
+    image: akkoma:${AKKOMA_VERSION}
     init: true
     restart: unless-stopped
     env_file: 
