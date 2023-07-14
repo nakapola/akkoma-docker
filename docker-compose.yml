@@ -22,7 +22,7 @@ services:
 
   server:
     # build: docker/
-    image: ghcr.io/nakapola/akkoma:${AKKOMA_VERSION}
+    image: ghcr.io/nakapola/akkoma:latest
     init: true
     restart: unless-stopped
     env_file: 
