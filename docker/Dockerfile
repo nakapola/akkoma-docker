@@ -1,6 +1,5 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} alpine AS build
+FROM alpine
 
-ARG TARGETPLATFORM
 ARG BUILD_DATE
 ARG VCS_REF
 
@@ -15,7 +14,6 @@ LABEL maintainer="mel@hyena.network" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine
 # Set up environment
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
