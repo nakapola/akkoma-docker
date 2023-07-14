@@ -21,7 +21,7 @@ services:
       - ./docker/initdb.sql:/docker-entrypoint-initdb.d/akkoma.sql
 
   server:
-    build: docker/
+    # build: docker/
     image: ghcr.io/nakapola/akkoma:${AKKOMA_VERSION}
     init: true
     restart: unless-stopped
